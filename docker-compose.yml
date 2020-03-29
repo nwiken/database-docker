@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+
+  web:
+    # replace username/repo:tag with your name and image details
+    build: .
+    ports:
+      - "8082:8080"
+    depends_on:
+      - mysqldb
+    command: ["./wait-for-it.sh", "mysqldb:3306", "-s", "-t", "20", "--","java", "-jar", "-Dspring.profiles.active=docker", "database.jar"]
+
+  mysqldb:
+    image: mysql:latest
+    ports:
+      - "5000:3306"
+    environment:
+      - MYSQL_PASSWORD=12345
+      - MYSQL_ROOT_PASSWORD=12345
+      - MYSQL_USER=django
+      - MYSQL_DATABASE=smart
+

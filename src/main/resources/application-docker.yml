@@ -1,0 +1,14 @@
+spring:
+  main:
+    banner-mode: "off"
+    flyway:
+      enable: false
+      locations: classpath:db/migration
+
+spring.datasource:
+    url: jdbc:mysql://mysqldb:3306/smart
+    username: django
+    password: 12345
+
+server.port: 8080
+server.servlet.context-path: /app
