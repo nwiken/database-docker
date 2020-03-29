@@ -7,10 +7,8 @@ services:
     ports:
       - "8082:8080"
     depends_on:
-      - mysqldb
-    command: ["./wait-for-it.sh", "mysqldb:3306", "-s", "-t", "20", "--","java", "-jar", "-Dspring.profiles.active=docker", "database.jar"]
-
-  mysqldb:
+      - db
+  db:
     image: mysql:latest
     ports:
       - "5000:3306"

@@ -17,4 +17,4 @@ COPY target/*.jar /src/app/database.jar
 COPY wait-for-it.sh /src/app/wait-for-it.sh
 
 # Run the jar file
-#ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/src/app/database.jar"]
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=docker", "database.jar"]

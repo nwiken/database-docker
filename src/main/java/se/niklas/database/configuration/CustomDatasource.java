@@ -1,5 +1,6 @@
 package se.niklas.database.configuration;
 
+import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -9,12 +10,14 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.datasource.AbstractDataSource;
 import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.retry.annotation.Retryable;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 
+@EnableRetry
 @Configuration
 @ConditionalOnProperty(value = "datasource.retry.disable", havingValue = "true", matchIfMissing = true)
 public class CustomDatasource {
@@ -51,15 +54,15 @@ public class CustomDatasource {
     }
 
     @Override
-    @Retryable(maxAttempts = 10,
-        backoff = @Backoff(value = 10000))
+    @Retryable(maxAttemptsExpression = "${datasource.retry.maxAttempts:10}",
+        backoff = @Backoff(delayExpression = "${datasource.retry.delayInMs:5000}"))
     public Connection getConnection() throws SQLException {
       return delegate.getConnection();
     }
 
     @Override
-    @Retryable(maxAttempts = 10,
-        backoff = @Backoff(value = 10000))
+    @Retryable(maxAttemptsExpression = "${datasource.retry.maxAttempts:10}",
+        backoff = @Backoff(delayExpression = "${datasource.retry.delayInMs:5000}"))
     public Connection getConnection(String username, String password)
         throws SQLException {
       return delegate.getConnection(username, password);
