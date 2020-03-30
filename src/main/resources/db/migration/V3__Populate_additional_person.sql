@@ -1,1 +1,0 @@
-INSERT INTO smart.person (id, firstname, surname) values ('11', 'Kalle', 'Stropp');

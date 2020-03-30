@@ -1,5 +1,5 @@
 create table smart.person (
-    id int not null,
+    id varchar(100) null,
     firstname varchar(100) not null,
     surname varchar(100) not null
 );
