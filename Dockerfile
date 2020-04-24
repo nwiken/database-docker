@@ -1,5 +1,5 @@
 # Dockerfile
-FROM openjdk:8-jdk
+FROM openjdk:11.0.7-slim
 
 # Add Maintainer Info
 LABEL maintainer="niklas.wiken@gmail.com"

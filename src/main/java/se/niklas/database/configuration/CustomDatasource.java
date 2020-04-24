@@ -1,6 +1,5 @@
 package se.niklas.database.configuration;
 
-import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
